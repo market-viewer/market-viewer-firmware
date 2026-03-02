@@ -6,6 +6,7 @@
 #include "HttpRequestManager.h"
 #include "messageDisplay.h"
 #include "Arduino.h"
+#include "TimerScreen.h"
 
 void BaseScreen::update() {
     display_message("Fetching new data...", MessageSeverity::INFO);
@@ -92,6 +93,13 @@ BaseScreen* createScreenFromType(const String& type, JsonObject& data) {
             data["displayGraph"],
             data["simpleDisplay"],
             graphType
+        );
+    }
+
+    if (type == "TIMER") {
+        return new TimerScreen(
+            position,
+            data["name"] | "Timer"
         );
     }
 

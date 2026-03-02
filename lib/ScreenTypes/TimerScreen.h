@@ -50,6 +50,8 @@ public:
 
     void timerEndUIUpdate();
 
+    bool isTimerAtZero();
+
     bool isTimerRunning() {return isRunning;}
     bool isTimerPaused() {return isPaused;}
 

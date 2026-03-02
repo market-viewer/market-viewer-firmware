@@ -7,6 +7,7 @@
 
 lv_obj_t * ui_timerScreen = NULL;
 lv_obj_t * ui_timerDescriptionSelectorLabel = NULL;
+lv_obj_t * ui_timerNameLabel = NULL;
 lv_obj_t * ui_timerArc = NULL;
 lv_obj_t * ui_timerRollersPanel = NULL;
 lv_obj_t * ui_hourRoller = NULL;
@@ -17,7 +18,6 @@ lv_obj_t * ui_timerResetButton = NULL;
 lv_obj_t * ui_timerPlayPauseButton = NULL;
 lv_obj_t * ui_timerTimeLabel = NULL;
 lv_obj_t * ui_timerIcon = NULL;
-lv_obj_t * ui_timerNameLabel = NULL;
 lv_obj_t * ui_pauseIconForLoadUnused = NULL;
 // event funtions
 void ui_event_timerScreen(lv_event_t * e)
@@ -31,6 +31,9 @@ void ui_event_timerScreen(lv_event_t * e)
     if(event_code == LV_EVENT_GESTURE &&  lv_indev_get_gesture_dir(lv_indev_get_act()) == LV_DIR_RIGHT) {
         lv_indev_wait_release(lv_indev_get_act());
         swipePrevScreen(e);
+    }
+    if(event_code == LV_EVENT_LONG_PRESSED) {
+        switchToHomeScreen(e);
     }
 }
 
@@ -75,6 +78,19 @@ void ui_timerScreen_screen_init(void)
     lv_obj_set_style_text_letter_space(ui_timerDescriptionSelectorLabel, 5, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_line_space(ui_timerDescriptionSelectorLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_timerDescriptionSelectorLabel, &ui_font_mono40, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_timerNameLabel = lv_label_create(ui_timerScreen);
+    lv_obj_set_width(ui_timerNameLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_timerNameLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_timerNameLabel, 0);
+    lv_obj_set_y(ui_timerNameLabel, -90);
+    lv_obj_set_align(ui_timerNameLabel, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_timerNameLabel, LV_LABEL_LONG_DOT);
+    lv_label_set_text(ui_timerNameLabel, "");
+    lv_obj_add_flag(ui_timerNameLabel, LV_OBJ_FLAG_HIDDEN);     /// Flags
+    lv_obj_set_style_text_color(ui_timerNameLabel, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_timerNameLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_timerNameLabel, &ui_font_mono40, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_timerArc = lv_arc_create(ui_timerScreen);
     lv_obj_set_width(ui_timerArc, 466);
@@ -242,18 +258,6 @@ void ui_timerScreen_screen_init(void)
     lv_obj_set_style_img_recolor(ui_timerIcon, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_img_recolor_opa(ui_timerIcon, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_timerNameLabel = lv_label_create(ui_timerScreen);
-    lv_obj_set_width(ui_timerNameLabel, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_timerNameLabel, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_timerNameLabel, 0);
-    lv_obj_set_y(ui_timerNameLabel, -90);
-    lv_obj_set_align(ui_timerNameLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_timerNameLabel, "Timer 1");
-    lv_obj_add_flag(ui_timerNameLabel, LV_OBJ_FLAG_HIDDEN);     /// Flags
-    lv_obj_set_style_text_color(ui_timerNameLabel, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_timerNameLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_timerNameLabel, &ui_font_mono40, LV_PART_MAIN | LV_STATE_DEFAULT);
-
     ui_pauseIconForLoadUnused = lv_img_create(ui_timerScreen);
     lv_img_set_src(ui_pauseIconForLoadUnused, &ui_img_81954201);
     lv_obj_set_width(ui_pauseIconForLoadUnused, LV_SIZE_CONTENT);   /// 50
@@ -275,6 +279,7 @@ void ui_timerScreen_screen_destroy(void)
     // NULL screen variables
     ui_timerScreen = NULL;
     ui_timerDescriptionSelectorLabel = NULL;
+    ui_timerNameLabel = NULL;
     ui_timerArc = NULL;
     ui_timerRollersPanel = NULL;
     ui_hourRoller = NULL;
@@ -285,7 +290,6 @@ void ui_timerScreen_screen_destroy(void)
     ui_timerPlayPauseButton = NULL;
     ui_timerTimeLabel = NULL;
     ui_timerIcon = NULL;
-    ui_timerNameLabel = NULL;
     ui_pauseIconForLoadUnused = NULL;
 
 }

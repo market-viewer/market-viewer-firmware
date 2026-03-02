@@ -16,6 +16,7 @@ extern void ui_timerScreen_screen_destroy(void);
 extern void ui_event_timerScreen(lv_event_t * e);
 extern lv_obj_t * ui_timerScreen;
 extern lv_obj_t * ui_timerDescriptionSelectorLabel;
+extern lv_obj_t * ui_timerNameLabel;
 extern lv_obj_t * ui_timerArc;
 extern lv_obj_t * ui_timerRollersPanel;
 extern lv_obj_t * ui_hourRoller;
@@ -28,7 +29,6 @@ extern void ui_event_timerPlayPauseButton(lv_event_t * e);
 extern lv_obj_t * ui_timerPlayPauseButton;
 extern lv_obj_t * ui_timerTimeLabel;
 extern lv_obj_t * ui_timerIcon;
-extern lv_obj_t * ui_timerNameLabel;
 extern lv_obj_t * ui_pauseIconForLoadUnused;
 // CUSTOM VARIABLES
 

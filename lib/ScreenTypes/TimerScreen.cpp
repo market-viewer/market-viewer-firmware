@@ -5,8 +5,36 @@
 #define ICON_PLAY &ui_img_1970864515
 #define ICON_PAUSE &ui_img_81954201
 
+const char* endScreenDisplayText = "End!";
+
 void TimerScreen::render() {
+    //update the vlaues
     lv_label_set_text(ui_timerNameLabel, name.c_str());
+
+    if (isRunning) {
+        startTimerUIUpdate();
+        //update the arc and times
+        if (isStopWatch) {
+            updateStopwatchUI();
+        } else {
+            updateTimerUI();
+        }
+        //update the play button
+        if (isPaused) {
+            lv_obj_set_style_bg_img_src(ui_timerPlayPauseButton, ICON_PLAY, LV_PART_MAIN);
+        }
+
+        //handle timer end screen
+        if (isTimerAtZero()) {
+            lv_label_set_text(ui_timerTimeLabel, endScreenDisplayText);
+            lv_obj_add_state(ui_timerPlayPauseButton, LV_STATE_DISABLED);
+        } else {
+            lv_obj_clear_state(ui_timerPlayPauseButton, LV_STATE_DISABLED);
+        }
+        
+    } else {
+        resetTimerUIUpdate();
+    }
 }
 
 void TimerScreen::resetTimer() {
@@ -70,7 +98,7 @@ void TimerScreen::resetTimerUIUpdate() {
 }
 
 void TimerScreen::timerEndUIUpdate() {
-    lv_label_set_text(ui_timerTimeLabel, "End!");
+    lv_label_set_text(ui_timerTimeLabel, endScreenDisplayText);
     lv_obj_add_state(ui_timerPlayPauseButton, LV_STATE_DISABLED);
 }
 
@@ -80,7 +108,7 @@ void TimerScreen::startTimer() {
     startTimerUIUpdate();
 
     isRunning = true;
-    isStopWatch = hour == 0 && minute == 0 && second == 0;
+    isStopWatch = isTimerAtZero();
 
     last_tick = millis() - 1000;
 }
@@ -199,4 +227,8 @@ void TimerScreen::togglePauseTimer() {
         lv_obj_set_style_bg_img_src(ui_timerPlayPauseButton, ICON_PLAY, LV_PART_MAIN);
     }
 
+}
+
+bool TimerScreen::isTimerAtZero() {
+    return hour == 0 && minute == 0 && second == 0;
 }

@@ -208,7 +208,7 @@ void go_to_home_screen() {
     activeScreenIndex = -1;
 
     //delay to not accidently click on the menu items
-    delay(400);
+    delay(600);
 }
 
 // --- SCREEN LOADER ---
