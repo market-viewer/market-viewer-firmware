@@ -53,13 +53,17 @@ void CryptoScreen::renderNormal() {
     lv_obj_clear_flag(ui_cryptoPriceChangeLabel, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_clear_flag(ui_cryptoAthArc, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_clear_flag(ui_cryptoAthLabel, LV_OBJ_FLAG_HIDDEN);    
+    lv_obj_clear_flag(ui_cryptoAthChangeLabel, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_clear_flag(ui_cryptoZeroLabel1, LV_OBJ_FLAG_HIDDEN);   
 
     //update widgets values
     std::string formattedPriceChange = build_price_change_label(priceChange).c_str();
+    std::string formattedAthChange = build_price_change_label(athChange).c_str();
+    
     double athBarValue = 100 + athChange;
 
     lv_label_set_text(ui_cryptoPriceChangeLabel, formattedPriceChange.c_str());
+    lv_label_set_text(ui_cryptoAthChangeLabel, formattedAthChange.c_str());
     lv_arc_set_value(ui_cryptoAthArc, (int32_t)athBarValue);    
 
     if (priceChange >= 0) {
@@ -76,6 +80,7 @@ void CryptoScreen::renderSimple() {
     lv_obj_add_flag(ui_cryptoPriceChangeLabel, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_add_flag(ui_cryptoAthArc, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_add_flag(ui_cryptoAthLabel, LV_OBJ_FLAG_HIDDEN);    
+    lv_obj_add_flag(ui_cryptoAthChangeLabel, LV_OBJ_FLAG_HIDDEN);    
     lv_obj_add_flag(ui_cryptoZeroLabel1, LV_OBJ_FLAG_HIDDEN);    
 }
 

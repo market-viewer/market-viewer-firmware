@@ -17,9 +17,6 @@ void init_screens_manager();
 
 void add_default_screens();
 
-// void add_test_screens();
-
-// Fetch screens from backend
 bool get_screens_from_backend();
 
 // Get all screens

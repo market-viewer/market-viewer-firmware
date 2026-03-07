@@ -68,7 +68,7 @@ void ui_clockScreen_screen_init(void)
     lv_label_set_text(ui_timeLabel, "12:34");
     lv_obj_set_style_text_color(ui_timeLabel, lv_color_hex(0xDDDDDD), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_timeLabel, 240, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_timeLabel, &ui_font_digitsFont, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_timeLabel, &ui_font_digitsFontSmall, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_left(ui_timeLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_right(ui_timeLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_pad_top(ui_timeLabel, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -98,7 +98,7 @@ void ui_clockScreen_screen_init(void)
     lv_obj_set_align(ui_digitalClockBackground, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_digitalClockBackground, LV_OBJ_FLAG_HIDDEN);     /// Flags
     lv_obj_clear_flag(ui_digitalClockBackground, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_img_src(ui_digitalClockBackground, &ui_img_green_background_png, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_img_src(ui_digitalClockBackground, &ui_img_purple_background_png, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_img_tiled(ui_digitalClockBackground, true, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_digitalTimeLabel = lv_label_create(ui_clockScreen);
@@ -109,7 +109,7 @@ void ui_clockScreen_screen_init(void)
     lv_obj_add_flag(ui_digitalTimeLabel, LV_OBJ_FLAG_HIDDEN);     /// Flags
     lv_obj_set_style_text_color(ui_digitalTimeLabel, lv_color_hex(0xFAFAFA), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_digitalTimeLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_digitalTimeLabel, &ui_font_digitsFont100, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_digitalTimeLabel, &ui_font_monoBold80, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_digitalTimezoneLabel = lv_label_create(ui_clockScreen);
     lv_obj_set_width(ui_digitalTimezoneLabel, LV_SIZE_CONTENT);   /// 1

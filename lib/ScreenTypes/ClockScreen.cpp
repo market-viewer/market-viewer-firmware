@@ -34,6 +34,10 @@ void ClockScreen::updateClockTimeDisplay() {
 
         //check the clock type
         if (clockType == ClockType::ANALOG_CLOCK) {
+            if (!use24Hour) {
+                hour = hour % 12;
+                if (hour == 0) hour == 12;
+            }
             snprintf(timeText, sizeof(timeText), "%02d:%02d", hour, minute);
     
             // calculate angles for needles
@@ -48,7 +52,14 @@ void ClockScreen::updateClockTimeDisplay() {
             //update digial clock
             lv_label_set_text(ui_timeLabel, timeText);
         } else {
-            snprintf(timeText, sizeof(timeText), "%02d:%02d:%02d", hour, minute, second);
+            if (use24Hour) {
+                snprintf(timeText, sizeof(timeText), "%02d:%02d:%02d", hour, minute, second);
+            } else {
+                int hour12 = hour % 12;
+                if (hour12 == 0) hour12 = 12;
+                const char* ampm = (hour < 12) ? "AM" : "PM";
+                snprintf(timeText, sizeof(timeText), "%d:%02d %s", hour12, minute, ampm);
+            }
 
             //update date
             char dateText[32];

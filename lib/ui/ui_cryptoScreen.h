@@ -27,6 +27,7 @@ extern lv_obj_t * ui_cryptoCurrencyLabel;
 extern lv_obj_t * ui_cryptoIcon;
 extern lv_obj_t * ui_cryptoAthLabel;
 extern lv_obj_t * ui_cryptoZeroLabel1;
+extern lv_obj_t * ui_cryptoAthChangeLabel;
 // CUSTOM VARIABLES
 
 #ifdef __cplusplus

@@ -23,7 +23,6 @@ void add_default_screens() {
 }
 
 void clear_all_screens() {
-    // Free memory for all screens
     for (auto screen : screens) {
         delete screen;
     }
@@ -58,7 +57,7 @@ bool get_screens_from_backend() {
         String type = screenObj["screenType"];
         JsonObject data = screenObj;
                 
-        // Create screen using factory
+        // create screen using factory
         BaseScreen* screen = createScreenFromType(type, data);
         
         if (screen != nullptr) {

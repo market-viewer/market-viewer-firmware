@@ -18,6 +18,7 @@ lv_obj_t * ui_cryptoCurrencyLabel = NULL;
 lv_obj_t * ui_cryptoIcon = NULL;
 lv_obj_t * ui_cryptoAthLabel = NULL;
 lv_obj_t * ui_cryptoZeroLabel1 = NULL;
+lv_obj_t * ui_cryptoAthChangeLabel = NULL;
 // event funtions
 void ui_event_cryptoScreen(lv_event_t * e)
 {
@@ -206,6 +207,17 @@ void ui_cryptoScreen_screen_init(void)
     lv_obj_set_style_text_opa(ui_cryptoZeroLabel1, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_cryptoZeroLabel1, &ui_font_monoBold20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_cryptoAthChangeLabel = lv_label_create(ui_cryptoScreen);
+    lv_obj_set_width(ui_cryptoAthChangeLabel, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_cryptoAthChangeLabel, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_cryptoAthChangeLabel, 0);
+    lv_obj_set_y(ui_cryptoAthChangeLabel, 170);
+    lv_obj_set_align(ui_cryptoAthChangeLabel, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_cryptoAthChangeLabel, "-50%");
+    lv_obj_set_style_text_color(ui_cryptoAthChangeLabel, lv_color_hex(0xCDCECD), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_cryptoAthChangeLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_cryptoAthChangeLabel, &ui_font_monoBold20, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     lv_obj_add_event_cb(ui_cryptoScreen, ui_event_cryptoScreen, LV_EVENT_ALL, NULL);
 
 }
@@ -228,5 +240,6 @@ void ui_cryptoScreen_screen_destroy(void)
     ui_cryptoIcon = NULL;
     ui_cryptoAthLabel = NULL;
     ui_cryptoZeroLabel1 = NULL;
+    ui_cryptoAthChangeLabel = NULL;
 
 }
