@@ -34,6 +34,7 @@ void init_wifi_config() {
     
     // try to auto-connect with saved credentials
     WiFi.mode(WIFI_STA);
+    WiFi.setAutoReconnect(true);
 
     WiFi.begin();
     

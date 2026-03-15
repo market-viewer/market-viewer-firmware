@@ -227,3 +227,10 @@ void timerStartPressed(lv_event_t * e)
 {
 	startTimerToggle(get_active_screen());
 }
+
+void restartDevice(lv_event_t * e)
+{
+    show_info_message("Restarting device");
+    delay(400);
+	ESP.restart();
+}

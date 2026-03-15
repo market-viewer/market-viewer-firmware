@@ -15,10 +15,12 @@ ui_comp_hook.c
 ui_helpers.c
 ui_events.cpp
 ui_img_1314322640.c
+ui_img_650757212.c
 ui_img_1826884842.c
 ui_img_367695115.c
 ui_img_871200326.c
 ui_img_555948897.c
+ui_img_301975032.c
 ui_img_1272477160.c
 ui_img_1702299517.c
 ui_img_536642073.c
@@ -37,6 +39,7 @@ ui_img_1970864515.c
 ui_img_461506120.c
 ui_img_81954201.c
 fonts/ui_font_digitsFont100.c
+fonts/ui_font_digitsFontSmall.c
 fonts/ui_font_Mono20.c
 fonts/ui_font_mono30.c
 fonts/ui_font_mono40.c
@@ -47,4 +50,3 @@ fonts/ui_font_monoBold50.c
 fonts/ui_font_monoBold60.c
 fonts/ui_font_monoBold80.c
 fonts/ui_font_monoLight30.c
-fonts/ui_font_digitsFontSmall.c
