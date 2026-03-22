@@ -5,6 +5,7 @@
 #include "WifiConfig.h"
 #include "startupEvents.h"
 #include "ScreensManager.h"
+#include "ui_events.h"
 
 void setup() {
   Serial.begin(115200);
@@ -23,6 +24,9 @@ void setup() {
 
   // load saved hardware settings (brightness, volume, rotation)
   loadHardwareSettingsFromPreferences();
+
+  //load screens on startup
+  loadScreensOnStartup();
   
   Serial.println("System Ready!");
 }

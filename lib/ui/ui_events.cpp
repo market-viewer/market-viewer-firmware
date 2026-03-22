@@ -14,44 +14,74 @@
 #include "messageDisplay.h"
 #include "GuiManager.h"
 
+#include "esp_sleep.h"
+#include "HardwareDriver.h"
+#include "pin_config.h" 
+
 #include "AudioManager.h"
 
 //global shield to not control screen when it is off
 lv_obj_t * blackout_shield = NULL;
 
+// void toggleTurnOff(lv_event_t * e)
+// {        
+       
+//     if (isScreenOff) {
+//         Serial.println("Screen waking up!");
+        
+//         setCpuFrequencyMhz(240); // drop speed when device is 'turned on'
+//         set_brightness_percentage(currentBrightness);
+//         isScreenOff = false;
+
+//         if (blackout_shield != NULL) {
+//             lv_obj_del(blackout_shield);
+//             blackout_shield = NULL; 
+//         }
+//     } else {
+//         Serial.println("Screen going to sleep");
+
+//         set_brightness(0);
+//         isScreenOff = true;
+
+//         //CREATE THE SHIELD
+//         blackout_shield = lv_obj_create(lv_layer_top());        
+//         lv_obj_set_size(blackout_shield, LV_PCT(100), LV_PCT(100));        
+//         lv_obj_set_style_bg_opa(blackout_shield, 0, 0);
+//         lv_obj_set_style_border_width(blackout_shield, 0, 0);        
+//         lv_obj_add_flag(blackout_shield, LV_OBJ_FLAG_CLICKABLE);
+//         lv_obj_clear_flag(blackout_shield, LV_OBJ_FLAG_SCROLLABLE);
+//         lv_obj_add_event_cb(blackout_shield, toggleTurnOff, LV_EVENT_CLICKED, NULL);
+
+//         setCpuFrequencyMhz(80); // drop speed when device is 'turned off'
+
+//     }    
+// }
+
+#define WAKE_BUTTON_PIN GPIO_NUM_0 
 void toggleTurnOff(lv_event_t * e)
 {        
-       
-    if (isScreenOff) {
-        Serial.println("Screen waking up!");
-        
-        setCpuFrequencyMhz(240); // drop speed when device is 'turned on'
-        set_brightness_percentage(currentBrightness);
-        isScreenOff = false;
+    Serial.println("Shutting down...");
+    
+    // 1. Turn off the display using the GFX library to stop it from drawing current
+    if (gfx) {
+        gfx->displayOff(); 
+    }
 
-        if (blackout_shield != NULL) {
-            lv_obj_del(blackout_shield);
-            blackout_shield = NULL; 
-        }
-    } else {
-        Serial.println("Screen going to sleep");
+    // 2. Shut down audio amp if needed (pull PA pin LOW to disable amplifier)
+    digitalWrite(PA, LOW); 
 
-        set_brightness(0);
-        isScreenOff = true;
+    // 3. Configure the hardware button to wake the device
+    // '0' means the pin gets pulled LOW (connected to Ground) when pressed.
+    // If your button pulls HIGH, change the 0 to a 1.
+    esp_sleep_enable_ext0_wakeup(WAKE_BUTTON_PIN, 0);
 
-        //CREATE THE SHIELD
-        blackout_shield = lv_obj_create(lv_layer_top());        
-        lv_obj_set_size(blackout_shield, LV_PCT(100), LV_PCT(100));        
-        lv_obj_set_style_bg_opa(blackout_shield, 0, 0);
-        lv_obj_set_style_border_width(blackout_shield, 0, 0);        
-        lv_obj_add_flag(blackout_shield, LV_OBJ_FLAG_CLICKABLE);
-        lv_obj_clear_flag(blackout_shield, LV_OBJ_FLAG_SCROLLABLE);
-        lv_obj_add_event_cb(blackout_shield, toggleTurnOff, LV_EVENT_CLICKED, NULL);
+    // Give serial a moment to print before sleeping
+    delay(100);
 
-        setCpuFrequencyMhz(80); // drop speed when device is 'turned off'
-
-    }    
+    // 4. Enter deep sleep
+    esp_deep_sleep_start();
 }
+
 
 void setBrightnessFromArc(lv_event_t * e)
 {

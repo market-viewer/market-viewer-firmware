@@ -5,6 +5,8 @@
 #include "HardwareDriver.h"
 #include "AudioManager.h"
 #include <Preferences.h>
+#include "ScreensManager.h"
+#include "ui_events_helper.h"
 
 static Preferences preferences;
 
@@ -60,3 +62,10 @@ void loadRotationFromPreferences(bool value) {
 
 }
 
+void loadScreensOnStartup() {
+    if (!is_wifi_connected()) return;
+
+    bool successful = get_screens_from_backend();
+
+    updateScreensScreenOnDataFetch(successful);
+}

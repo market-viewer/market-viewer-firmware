@@ -8,5 +8,7 @@ void loadBrightnessFromPreferences(int value);
 void loadVolumeFromPreferences(int value);
 void loadRotationFromPreferences(bool value);
 
+void loadScreensOnStartup();
+
 
 #endif
